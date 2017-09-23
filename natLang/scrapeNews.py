@@ -11,7 +11,7 @@ def getNewsHeadlines(url):
 def getTopicUrl(topic):
 	with open('data/newsUrls.csv', mode='r') as infile:
 		reader = csv.reader(infile)
-		topicUrls = {row[0].replace('\ufeff', ''):row[1] for row in reader}
+		topicUrls = {row[0].replace('\ufeff', '') : row[1] for row in reader}
 	if topic in topicUrls:
 		return topicUrls[topic]
 
