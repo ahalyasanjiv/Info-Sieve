@@ -1,0 +1,50 @@
+{
+  "components": [
+    {
+      "data": {
+        "contents_checksum": "586c3f0a8206593d4fac9e0906d401b7e23e8abcc074ca6388f6ab6a5e76da2b", 
+        "source": "", 
+        "type": "tar"
+      }, 
+      "dependencies": [
+        "core", 
+        "gcloud-deps-linux-x86", 
+        "gcloud-deps-linux-x86_64", 
+        "gcloud-deps-darwin-x86", 
+        "gcloud-deps-darwin-x86_64", 
+        "gcloud-deps-windows-x86", 
+        "gcloud-deps-windows-x86_64"
+      ], 
+      "details": {
+        "description": "Set of third_party gcloud cli dependencies.", 
+        "display_name": "gcloud cli dependencies"
+      }, 
+      "id": "gcloud-deps", 
+      "is_configuration": false, 
+      "is_hidden": true, 
+      "is_required": false, 
+      "platform": {
+        "architectures": [
+          "x86", 
+          "x86_64"
+        ], 
+        "operating_systems": [
+          "LINUX", 
+          "MACOSX", 
+          "WINDOWS"
+        ]
+      }, 
+      "version": {
+        "build_number": 20170921151845, 
+        "version_string": "2017.09.21"
+      }
+    }
+  ], 
+  "revision": 20170921151845, 
+  "schema_version": {
+    "no_update": false, 
+    "url": "https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.tar.gz", 
+    "version": 3
+  }, 
+  "version": "172.0.1"
+}
