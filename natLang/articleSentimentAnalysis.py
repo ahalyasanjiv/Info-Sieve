@@ -8,8 +8,8 @@ import naturalLangKey as nl
 """
 Used to see if the tag is part of main text of page or not
 
-param: element: HTML tag element to check
-returns: Boolean value denoting whether tag element should be include
+:param: element: HTML tag element to check
+:returns: Boolean value denoting whether tag element should be include
 """
 def includeTag(element):
     if isinstance(element, Comment) or element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
@@ -19,8 +19,8 @@ def includeTag(element):
 """
 Extracts text from HTML page
 
-param: html: HTML of page to get text from
-returns: Plain text extracted from html
+:param: html: HTML of page to get text from
+:returns: Plain text extracted from html
 """
 def text_from_html(html):
     soup = BeautifulSoup(html, 'html.parser')
@@ -32,8 +32,8 @@ def text_from_html(html):
 """
 Get sentiment analysis of a given URL
 
-param: url: URL to get sentiment analysis
-returns: Sentiment magnitude and emotion analysis in JSON format
+:param: url: URL to get sentiment analysis
+:returns: Sentiment magnitude and emotion analysis in JSON format
 """
 def getSentimentAnalysis(url):
 	html = urllib.request.urlopen(url).read()
