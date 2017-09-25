@@ -1,37 +1,58 @@
-import argparse # allows application to accept input filenames as arguments
-import urllib
-
-from google.cloud import language
-from google.cloud.language import enums
-from google.cloud.language import types
-
-
-"""
-Gets sentiment score of a selected text
-
-:param category: text to analyze
-:returns: sentiment score for text
-"""
-def getSentimentScore(text):
-	score = annotations.document_sentiment.score
-	return score
+import json
+from bs4 import BeautifulSoup
+from bs4.element import Comment
+import urllib.request
+import watson_developer_cloud.natural_language_understanding.features.v1 as Features
+import naturalLangKey as nl
 
 """
-Gets sentiment magnitude of a selected text
+Used to see if the tag is part of main text of page or not
 
-:param category: text to analyze
-:returns: sentiment magnitude for text
+param: element: HTML tag element to check
+returns: Boolean value denoting whether tag element should be include
 """
-def getSentimentMagnitude(text):
-	magnitude = annotations.document_sentiment.magnitude
-	return magnitude
+def includeTag(element):
+    if isinstance(element, Comment) or element.parent.name in ['style', 'script', 'head', 'title', 'meta', '[document]']:
+        return False
+    return True
 
 """
-Runs sentiment analysis on the text of a url
+Extracts text from HTML page
 
-:param category: url to analyze text of
-:returns: sentiment analysis for url's text
+param: html: HTML of page to get text from
+returns: Plain text extracted from html
 """
-def analyzeArticle(url):
-	text = urllib.urlopen('http://www.bbc.com/news/world-asia-41375302').read()
-	print(text)
+def text_from_html(html):
+    soup = BeautifulSoup(html, 'html.parser')
+    texts = soup.findAll(text=True)
+    # Parse text for HTML elements that do not contain the main text of the page
+    visible_texts = filter(includeTag, texts)  
+    return u" ".join(t.strip() for t in visible_texts)
+
+"""
+Get sentiment analysis of a given URL
+
+param: url: URL to get sentiment analysis
+returns: Sentiment magnitude and emotion analysis in JSON format
+"""
+def getSentimentAnalysis(url):
+	html = urllib.request.urlopen(url).read()
+	soup = BeautifulSoup(html, 'html.parser')
+	text = text_from_html(html)
+	natural_language_understanding = nl.enableWatsonNatLang()
+	response = natural_language_understanding.analyze(
+		text= text,
+	  	features=[
+	    Features.Entities(
+	      emotion=True,
+	      sentiment=True,
+	      limit=2
+	    )
+	  	]
+	)
+	return json.dumps(response, indent=2)
+
+if __name__ == '__main__':
+	# Test functionality of sentiment analysis
+	url = "https://www.washingtonpost.com/powerpost/cassidy-on-new-health-care-plan-its-not-for-susan-its-for-the-mainers/2017/09/25/3dc5d74e-a20f-11e7-b14f-f41773cd5a14_story.html"
+	print(getSentimentAnalysis(url))
