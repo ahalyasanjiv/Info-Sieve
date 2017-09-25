@@ -6,7 +6,7 @@ import watson_developer_cloud.natural_language_understanding.features.v1 as Feat
 import naturalLangKey as nl
 
 """
-Used to see if the tag is part of main text of page or not
+See if the tag is part of main text of page or not
 
 :param: element: HTML tag element to check
 :returns: Boolean value denoting whether tag element should be include
