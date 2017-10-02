@@ -22,7 +22,7 @@ Extracts text from HTML page
 :param: html: HTML of page to get text from
 :returns: Plain text extracted from html
 """
-def text_from_html(html):
+def textFromHtml(html):
     soup = BeautifulSoup(html, 'html.parser')
     texts = soup.findAll(text=True)
     # Parse text for HTML elements that do not contain the main text of the page
@@ -38,16 +38,19 @@ Get sentiment analysis of a given URL
 def getSentimentAnalysis(url):
 	html = urllib.request.urlopen(url).read()
 	soup = BeautifulSoup(html, 'html.parser')
-	text = text_from_html(html)
+	text = textFromHtml(html)
 	natural_language_understanding = nl.enableWatsonNatLang()
 	response = natural_language_understanding.analyze(
 		text= text,
 	  	features=[
-	    Features.Entities(
-	      emotion=True,
-	      sentiment=True,
-	      limit=2
-	    )
+	  		Features.Sentiment(
+	  			document=True
+	  		),
+		    Features.Entities(
+		      emotion=True,
+		      sentiment=True,
+		      limit = 5
+	    	)
 	  	]
 	)
 	return json.dumps(response, indent=2)

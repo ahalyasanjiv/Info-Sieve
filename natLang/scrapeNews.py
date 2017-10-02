@@ -29,7 +29,6 @@ def getNewsHeadlines(url):
 	headlines = [element.title.text for element in soup.findAll('item')][:10]
 	return headlines
 
-
 """
 Gets the links to the first n news results for the query
 
@@ -43,6 +42,7 @@ def getFirstNLinks(url,n):
 		if (d.entries[i]!=''):
 			links.append(d.entries[i].link)
 	return links
+
 
 if __name__ == '__main__':
 	url = getCategoryUrl('World')
