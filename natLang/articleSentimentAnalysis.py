@@ -47,11 +47,10 @@ def getSentimentAnalysis(url):
 	  		Features.Sentiment(
 	  			document=True
 	  		),
-	  		# Get emotion and sentiment towards key entities (max:5)
+	  		# Get emotion towards relevant entities (max:3)
 		    Features.Entities(
 		      emotion=True,
-		      sentiment=True,
-		      limit = 5
+		      limit = 3
 	    	)
 	  	]
 	)
