@@ -43,9 +43,11 @@ def getSentimentAnalysis(url):
 	response = natural_language_understanding.analyze(
 		text= text,
 	  	features=[
+	  		# Get general sentiment of text
 	  		Features.Sentiment(
 	  			document=True
 	  		),
+	  		# Get emotion and sentiment towards key entities (max:5)
 		    Features.Entities(
 		      emotion=True,
 		      sentiment=True,
